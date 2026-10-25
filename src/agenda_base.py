@@ -19,7 +19,6 @@ class Atendimento:
     data: str
     hora: int
     duracao: int
-    marcado: str = MARCADO
 
 def validar_atendimento(data, hora, duracao):
     """ Valida os dados de um atendimento
@@ -81,12 +80,11 @@ def adicionar_atendimento(atendimento: Atendimento):
         validar_atendimento(atendimento.data, atendimento.hora, atendimento.duracao)
 
         if verificar_conflito_horario(atendimento.nome_profissional, atendimento.data, atendimento.hora):
-               print(f"Horario {atendimento.hora}h ocupado no dia {atendimento.data} para o profissional {atendimento.nome_profissional}")
+               print(f"Horario ocupado")
                return False
 
-        atendimento.marcado = MARCADO
         lista_agenda.append(atendimento)
-        print(f"Atendimento marcado para {atendimento.nome_paciente} em {atendimento.data} as {atendimento.hora}h")
+        print(f"Atendimento marcado para {atendimento.nome_paciente}")
         return True
     
     except ValueError as e:
@@ -126,7 +124,7 @@ def remarcar_atendimento(nome_paciente, antiga_data, antiga_hora, nova_data, nov
         validar_atendimento(nova_data, nova_hora, DURACAO_MINIMA)
     
         if verificar_conflito_horario(atendimento_encontrado.nome_profissional, nova_data, nova_hora):
-            print(f"Horario {nova_hora}h ocupado no dia {nova_data} para o profissional {atendimento_encontrado.nome_profissional}")
+            print(f"Horario ocupado")
             return False
     
     except ValueError as e:
@@ -136,7 +134,7 @@ def remarcar_atendimento(nome_paciente, antiga_data, antiga_hora, nova_data, nov
     
     atendimento_encontrado.data = nova_data
     atendimento_encontrado.hora = nova_hora
-    print(f"Atendimento remarcado para {atendimento_encontrado.nome_paciente} em {nova_data} as {nova_hora}h")  
+    print("Remarcado")  
     return True
     
     
@@ -153,8 +151,7 @@ def listar_atendimentos(data):
     """
     for atendimento_existente in lista_agenda:
         if atendimento_existente.data == data:
-            print(f"Data: {atendimento_existente.data}")
-            print(f"Hora:{atendimento_existente.hora}h, Nome: {atendimento_existente.nome_paciente}, Profissional: {atendimento_existente.nome_profissional}, Duracao: {atendimento_existente.duracao}, {atendimento_existente.marcado}")
+            print(atendimento_existente.hora, atendimento_existente.nome_paciente, atendimento_existente.nome_profissional, atendimento_existente.duracao, MARCADO)
 
 
 
