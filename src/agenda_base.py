@@ -23,14 +23,16 @@ class Atendimento:
 
 
 def validar_data_atendimento(data: str) -> None:
-    """ Valida a data de um atendimento 
+    """ Valida a data de um atendimento.
 
     Args:
-        horario (int): horario do atendimento
+        horario (int): horario do atendimento.
+
     Returns:
-        None
+        None.
+
     Raises:
-        ValueError: Se o formato da data for inválida
+        ValueError: Se o formato da data for inválida.
     """
     try:
         datetime.strptime(data, FORMATO_DATA)
@@ -39,14 +41,16 @@ def validar_data_atendimento(data: str) -> None:
 
 
 def validar_duracao_atendimento(duracao: int) -> None:
-    """ Valida horario de um atendimento 
+    """ Valida horario de um atendimento. 
 
     Args:
-        duracao (int): duracao de um atendimento em minutos
+        duracao (int): duracao de um atendimento em minutos.
+
     Returns:
-        None
+        None.
+
     Raises:
-        ValueError: Se a duração for inválida
+        ValueError: Se a duração for inválida.
     """
 
     if not (duracao >= DURACAO_MINIMA and duracao <= DURACAO_MAXIMA) or not (duracao % DURACAO_MINIMA == 0):
@@ -54,30 +58,34 @@ def validar_duracao_atendimento(duracao: int) -> None:
     
 
 def validar_horariorio_atendimento(horario: int) -> None:
-    """ Valida horario de um atendimento 
+    """ Valida horario de um atendimento. 
 
     Args:
-        horario (int): horario do atendimento
+        horario (int): horario do atendimento.
+
     Returns:
-        None
+        None.
+
     Raises:
-        ValueError: Se o horario for inválido
+        ValueError: Se o horario for inválido.
     """
     if not (horario >= INICIO_EXPEDIENTE and horario <= FIM_EXPEDIENTE):
         raise ValueError(f"{horario} e uma horario invalida. Deve estar entre {INICIO_EXPEDIENTE} e {FIM_EXPEDIENTE}")
     
 
 def validar_atendimento(data: str, horario: int, duracao: int) -> None:
-    """ Valida os dados de um atendimento conforme as regras de negócio 
+    """ Valida os dados de um atendimento conforme as regras de negócio. 
     
     Args:
-        data (str): Data do atendimento no formato AAAA-MM-DD
-        horario (int): horario do atendimento
-        duracao (int): Duracao de um atendimento em minutos
+        data (str): Data do atendimento no formato AAAA-MM-DD.
+        horario (int): horario do atendimento.
+        duracao (int): Duracao de um atendimento em minutos.
+
     Returns:
-        None
+        None.
+
     Raises:
-        ValueError: Se a duração, horario ou data forem inválidas
+        ValueError: Se a duração, horario ou data forem inválidas.
     """
     validar_data_atendimento(data)
     validar_duracao_atendimento(duracao)
@@ -88,16 +96,18 @@ def validar_atendimento(data: str, horario: int, duracao: int) -> None:
     
 
 def verificar_conflito_horariorio(nome_profissional: str, data: str, horario: int) -> bool:
-    """ Verifica se há conflito de horários para um profissional em uma data e horario específicas
+    """ Verifica se há conflito de horários para um profissional em uma data e horario específicas.
 
     Args:
-        nome_profissional (str): Nome do profissional
-        data (str): Data do atendimento no formato AAAA-MM-DD
-        horario: horario do atendimento 
+        nome_profissional (str): Nome do profissional.
+        data (str): Data do atendimento no formato AAAA-MM-DD.
+        horario: horario do atendimento.
+
     Returns:
-        bool: True se houver conflito, False se houver conflito
+        bool: True se houver conflito, False se houver conflito.
+
     Raises:
-       None 
+       None. 
     """
     for atendimento_existente in lista_agenda:
         if (atendimento_existente.nome_profissional == nome_profissional 
@@ -109,18 +119,20 @@ def verificar_conflito_horariorio(nome_profissional: str, data: str, horario: in
 
 
 def adicionar_atendimento(nome_paciente: str, nome_profissional: str, data: str, horario: int, duracao: int) -> Atendimento:
-    """ Adiciona um novo atendimento à agenda da clínica
+    """ Adiciona um novo atendimento à agenda da clínica.
 
     Args:
-        nome_paciente (str): Nome do paciente
-        nome_profissional(str): Nome do profissional
-        data (str): Data do atendimento no formato AAAA-MM-DD
-        horario (int): horario do atendimento
-        duracao (int): Duracao de um atendimento em minutos
+        nome_paciente (str): Nome do paciente.
+        nome_profissional(str): Nome do profissional.
+        data (str): Data do atendimento no formato AAAA-MM-DD.
+        horario (int): horario do atendimento.
+        duracao (int): Duracao de um atendimento em minutos.
+
     Returns:
-        None
+        Atendimento: novo atendimento agendado.
+
     Raises:
-        ValueError: Se os dados do atendimento forem inválidos ou se o horario estiver ocupado
+        ValueError: Se os dados do atendimento forem inválidos ou se o horario estiver ocupado.
     """
    
     validar_atendimento(data,horario,duracao)
@@ -137,20 +149,22 @@ def adicionar_atendimento(nome_paciente: str, nome_profissional: str, data: str,
    
 
 def remarcar_atendimento(nome_paciente: str, antiga_data: str, antiga_horario: int, nova_data: int, nova_horario: int) -> None:
-    """Remarca um atendimento agendado para uma nova data e horario
+    """Remarca um atendimento agendado para uma nova data e horario.
 
     Args:
-        nome_paciente (str): Nome do paciente
-        antiga_data (str): Data do atendimento original no formato AAAA-MM-DD
-        antiga_horario (int): horario do atendimento original
-        nova_data (str): Nova data para o atendimento no formato AAAA-MM-DD
-        nova_horario (int): Nova horario para o atendimento
-        nova_data (str): Nova data para o atendimento no formato AAAA-MM-DD
-        nova_horario (int): Nova horario para o atendimento
+        nome_paciente (str): Nome do paciente.
+        antiga_data (str): Data do atendimento original no formato AAAA-MM-DD.
+        antiga_horario (int): horario do atendimento original.
+        nova_data (str): Nova data para o atendimento no formato AAAA-MM-DD.
+        nova_horario (int): Nova horario para o atendimento.
+        nova_data (str): Nova data para o atendimento no formato AAAA-MM-DD.
+        nova_horario (int): Nova horario para o atendimento.
+
     Returns:
-        None
+        None.
+
     Raises:
-        ValueError: Se a nova data ou horario forem inválidas, se o horario estiver ocupado ou se nçao houver dados agendados correspondentes
+        ValueError: Se a nova data ou horario forem inválidas, se o horario estiver ocupado ou se nçao houver dados agendados correspondentes.
     """
     atendimento_encontrado = None
     
@@ -175,14 +189,16 @@ def remarcar_atendimento(nome_paciente: str, antiga_data: str, antiga_horario: i
     
 
 def listar_atendimentos(data) -> None:
-    """Lista os atendimentos agendados para o usuário 
+    """Lista os atendimentos agendados para o usuário. 
 
     Args:
-        data (str): Data para listar os atendimentos no formato AAAA-MM-DD
+        data (str): Data para listar os atendimentos no formato AAAA-MM-DD.
+
     Returns:
-        None
+        None.
+
     Raises:  
-        ValueError: Se o formato da data for inválida  
+        ValueError: Se o formato da data for inválida.  
     """
     validar_data_atendimento(data)
     
