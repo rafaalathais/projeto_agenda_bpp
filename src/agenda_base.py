@@ -49,7 +49,7 @@ def validar_duracao_atendimento(duracao: int) -> None:
         ValueError: Se a duração for inválida
     """
 
-    if not (duracao >= DURACAO_MINIMA and duracao < DURACAO_MAXIMA) or not (duracao % DURACAO_MINIMA == 0):
+    if not (duracao >= DURACAO_MINIMA and duracao <= DURACAO_MAXIMA) or not (duracao % DURACAO_MINIMA == 0):
             raise ValueError(f"{duracao} e uma duracao invalida. Deve ser entre {DURACAO_MINIMA} e {DURACAO_MAXIMA} minutos, em multiplo de {DURACAO_MINIMA}")
     
 
@@ -126,7 +126,7 @@ def adicionar_atendimento(nome_paciente: str, nome_profissional: str, data: str,
     validar_atendimento(data,horario,duracao)
 
     if verificar_conflito_horariorio(nome_profissional, data,horario):
-        raise ValueError(f"horario ocupado")
+        raise ValueError(f"Horario ocupado")
 
     novo_atendimento = Atendimento(nome_paciente,nome_profissional,data,horario, duracao)
 
@@ -164,10 +164,10 @@ def remarcar_atendimento(nome_paciente: str, antiga_data: str, antiga_horario: i
     if atendimento_encontrado is None:
         raise ValueError(f"Atendimento não encontrado para {nome_paciente} em {antiga_data} as {antiga_horario}h")
        
-    validar_atendimento(nova_data, nova_horario, DURACAO_MINIMA)
+    validar_atendimento(nova_data, nova_horario, atendimento_encontrado.duracao)
     
     if verificar_conflito_horariorio(atendimento_encontrado.nome_profissional, nova_data, nova_horario):
-            raise ValueError(f"horario ocupado")
+            raise ValueError(f"Horario ocupado")
           
     atendimento_encontrado.data = nova_data
     atendimento_encontrado.horario = nova_horario
